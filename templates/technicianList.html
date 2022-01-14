@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Technicians{% endblock title %}
+
+{% block content %}
+    {% if deviceId %}
+        <div>
+            <h1>Please Select Technicians Below</h1>
+        </div>
+    {% endif %}
+
+        <div> 
+            <form action="get">
+                <div class="card-body">
+
+                    <label for="searchFilter">Search By: </label>
+                    <select id="searchFilter" name="searchFilter">
+                        <option value="name" {% if searched.name %} selected {% endif %} >Technician Name</option>
+                        <option value="device" {% if searched.device %} selected {% endif %} >Device</option>
+                        <option value="orgName" {% if searched.orgName %} selected {% endif %} >Organization Name</option>
+                    </select>
+                    <input type="text" value="{{ searched.value}}" name = "searchInput">
+                    <input type="submit" class = 'btn btn-primary' value = 'Search'>
+
+                </div>
+                <div style = "border: 2px solid black; padding:5px; text-align:center">
+                <div style = "text-align:center"><h3>Filters</h3></div>
+                <div class="card">
+                        
+
+                    <div class="card-body">
+                        <h4>By Rating:</h4>
+                        <label for="mostRated"> Most Rated</label>
+                        <input type="checkbox" name="mostRated" id="mostRated" {% if searched.mostRated %} checked {% endif %}>
+                    </div>
+                </div>
+               <br>
+               <div class="card">
+                    <div class="card-body">
+                        <h4>By Address:</h4>
+                        {% for adr in address %}
+                            {{adr}}:
+                            <input type="checkbox" name="{{ adr }}" id = "{{ adr }}"> &Tab; &Tab;
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            </form>
+            <hr>
+        </div>
+        {% comment %} {% if searched and (searched.value or searched.filter  %}
+                 {% if searched.value %} Technicians Search Result For {{searched.value}} {% endif %}
+                 {% if searched.filter %} Technicians Filtered by {{searched.filter}} {% endif %}
+        {% endif %} {% endcomment %}
+{% if object_list %}
+    {% for techn in object_list %}
+        <div class="card">
+            <div class="card-body">
+                
+                <div class="row">
+                    <div class="col-3" style = "border-right:1px solid gray;">
+                        <img src="{{techn.ProfilePicture.url}}" alt="" srcset="" style = "width:100%; border-radius:100%;">
+                    </div>
+
+                    <div class="col-8">
+                    <h1>{{ techn.user.get_full_name}}</h1>
+                    <span class="font-weight-bold">Organization Name: {{ techn.organizationName }}</span> &middot;
+                    <p> Location: {{ techn.Location }} </p>
+                    <p> Devices: {{ techn.device.devicename }} </p>
+                    {% if not deviceId %}
+                        <a href="{% url 'technicianDetail' techn.pk %}" class = "detail__link btn btn-primary">See Detail</a>
+                    {% else %}
+                        <a href="{% url 'technicianDetailOrder' deviceId techn.pk %}" class = "detail__link btn btn-primary">detail to select</a>
+                    
+                    {% endif %}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <br />
+    {% endfor %}
+
+{% else %}
+    <div class="card container">
+        <div class="card-header">
+            <h1> there is no Technician To show </h1>
+    </div>
+{% endif %}
+
+{% endblock content %}

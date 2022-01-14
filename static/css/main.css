@@ -1,0 +1,13 @@
+/* body{
+    background-color: black;
+} */
+
+.logo{
+    width: 10vw;
+    border: 1px solid red;
+}
+.detail__link{
+    /* float:right;
+    margin-right: 5%; */
+    width:100%;
+}

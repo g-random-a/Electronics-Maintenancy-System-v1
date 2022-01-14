@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title%} Title {% endblock title %}
+
+{% block content %}
+    <div class="article-entry">
+
+    <h2>{{ object.device }}</h2>
+    <p>by {{ object.technician.user.first_name }} | {{ object.date }}</p>
+    <p>{{ object.technician.user.last_name }}</p>
+    <p> 
+    </ul>
+    </p>
+
+    </div>
+
+{% endblock content %}

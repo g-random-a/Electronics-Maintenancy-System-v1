@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Fix My Device{% endblock title %}
+
+{% block content %}
+
+<div class="row">
+{% for Device in object_list %}
+    <div class="card col" style="width: 18rem; margin:5px;">
+        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-card-40-iphone13problue-202109_FMT_WHH?wid=506&hei=472&fmt=p-jpg&qlt=95&.v=1629948811000" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ Device.devicename }}</h5>
+          <p class="card-text">{{ Device.deviceDescription }}</p>
+          <a href="{% url 'technicianListOrder' Device.pk %}" class = "detail__link btn btn-primary">Fix MyDevice</a>
+
+        </div>
+      </div>
+{% endfor %}
+</div>
+
+{% endblock content %}

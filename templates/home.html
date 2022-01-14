@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1 align = "center"> Wellcome to BTS <br>All in One Electronic Maintenancy System</h1>
+        {% if not user.is_authenticated %}
+        <div align = "center">
+            <a href="{% url 'login' %}" align = "center" class = "btn btn-primary">Login</a>
+            <a href = "{% url 'signup-pre' %}" align = "center"  class = "btn btn-primary" > Sign Up </a>
+        <div>
+        {% else %}
+        {{ user.username }}
+        {% endif %}
+    </div>
+
+    <div class="jumbotron">
+        {% comment %} <h1 class="display- ">Newest Articles</h1> {% endcomment %}
+        {% comment %} {% for article in Article %}
+        <div> 
+            <h2> {{article.title}}</h2>
+            <div>
+                <p> {{article.body}}</p>
+            </div>
+        </div>
+        {% endfor %} {% endcomment %}
+
+        <p class="lead">
+            article list link{% comment %} <a class="btn btn-primary btn-lg" href="{% url 'article_list' %}" role="button">More</a> {% endcomment %}
+        </p>
+    </div>
+
+
+{% endblock content %}

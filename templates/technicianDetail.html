@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title%} Title {% endblock title %}
+
+{% block content %}
+    <div class="article-entry">
+
+    <h2>{{ object.organizationName }}</h2>
+    <p>by {{ object.user.email }} | {{ object.date }}</p>
+    <p>{{ object.Location }}</p>
+    <p> 
+        <ul>
+            <li>
+        {% comment %} <a href="{% url 'user_posts' tech.id%}"> {% endcomment %}
+            
+            {% if object.id == user.id  %}
+                    Hello Technician
+            {% endif %}
+            </a> 
+        </li>
+    </ul>
+    {% if deviceId %}
+        <a href="{% url 'technicianDetail' deviceId %}" class = "detail__link btn btn-primary">Select Technician</a>
+    {% endif %}
+        {% comment %} {% # cust.authors.first.userPostCount %} {% endcomment %}
+    </p>
+
+    </div>
+    {% if tech.id == user.id  %}
+    <p> 
+        {% comment %} <a href="{% url 'technician_update' Technician.pk %}">Edit Your Profile</a>  {% endcomment %}
+    </p>
+    <br>
+    {% endif %}
+
+    <p> Back to <a href="{% url 'technicianList' %}">All Technicians</a>.</p>
+{% endblock content %}

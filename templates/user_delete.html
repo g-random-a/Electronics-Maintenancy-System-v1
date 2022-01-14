@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% if user.is_authenticated %}
+{% block title%} Edit {{object.title}} {% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Edit</h1>
+    <form action="" method="post">{% csrf_token %}
+        <h1>Do you want to delete Your Account Permanently</h1>
+        <button class="btn btn-info ml- " type="submit">yes</button>
+        <a class="btn btn-info ml- " href = {{ url 'home' }}>no</a>
+    </form>
+{% endblock content %}
+{% endif %}

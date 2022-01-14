@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Orders{% endblock title %}
+
+{% block content %}
+
+        <div> 
+            <form action="get">
+                <label for="searchFilter">Search By: </label>
+                <select id="searchFilter" name="searchFilter">
+                    <option value="device" {% if searched.device %} selected {% endif %} >Device</option>
+                    <option value="technicianName" {% if searched.tech %} selected {% endif %} >technicianName</option>
+                </select>
+                <input type="text" value="{{ searched.value}}" name = "searchInput">
+                <input type="submit" class = 'btn btn-primary' value = 'Search'>
+
+                <hr>
+                <h3>Filters</h3>
+                <label for="newest"> Newest</label>
+                <input type="checkbox" name="newest" id="newest" {% if searched.filter %} checked {% endif %}>
+            </form>
+            <hr>
+        {% if success %}
+            </div>
+            <div>
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </symbol>
+                    </svg>Your Order Submitted successfully
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+        {% endif %}
+            
+        </div>
+{% if object_list %}
+    {% for order in object_list %}
+        <div class="card">
+            {% comment %} 
+            <div class="card-header">
+                
+                <span class="font-weight-bold">{{ order.device }}</span> &middot;
+                <span class="text-muted">{{ order.date }}</span>
+            </div> {% endcomment %}
+
+            <div class="card-body">
+               {% comment %} <p> {{ order.technician.user.first_name }} </p>
+               <p> {{ order.technician.user.last_name }} </p>
+               <a class = 'btn btn-primary {{color}}' href = {% url 'orderDetail' order.id %}>Detail</a> {% endcomment %}
+               <div class="container" style = "text-align:center">
+                <div class="row">
+                  <div class="col-11">
+                      <strong>
+                    Technician name: {{ order.technician.user.first_name }}<br>
+                    Ordered Device: {{ order.device }}<br>
+                    <span class="text-muted">{{ order.date }}</span>
+                      </strong>
+                  </div>
+                  <div class="col-1">
+                    {% if order.status %} 
+                        <button class="btn btn-success">Done</button>
+                    {% else %}
+                        <button class="btn btn-primary">Pending</button>
+                    {% endif %}
+                    
+                  </div>
+                </div>
+                <div style = "width:100%;">
+                    <hr>
+                <a style = "width:50%;" class = 'btn btn-primary {{color}}' align = "center" href = {% url 'orderDetail' order.id %}>Detail</a>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <br />
+    {% endfor %}
+
+{% else %}
+    <div class="card container">
+        <div class="card-header">
+            <h1> there is no Order with Searched </h1>
+    </div>
+{% endif %}
+
+{% endblock content %}

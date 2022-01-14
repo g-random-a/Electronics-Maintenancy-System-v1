@@ -1,0 +1,9 @@
+<form method="post">
+{% csrf_token %}
+Your Orders<br>
+Device Name: {{device.devicename}}<br>
+Device Description: {{device.deviceDescription}}
+technician : {{technician.user.get_full_name}}
+technician Address: {{technician.Location}}
+<input type="submit" value="submit" class = "btn btn-primary">
+</form>

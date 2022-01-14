@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% if user.is_authenticated %}
+{% block title%} Edit Profile {% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Edit</h1>
+    <form action="" method="post">{% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-info ml- " type="submit">Update</button>
+    </form>
+{% endblock content %}
+{% endif %}
